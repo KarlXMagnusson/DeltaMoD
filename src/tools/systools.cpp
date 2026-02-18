@@ -7,6 +7,7 @@
 
 
 #define BOOST_FILESYSTEM_NO_DEPRECATED
+#include <boost/filesystem.hpp>
 #include <boost/filesystem/operations.hpp>
 #include <boost/filesystem/path.hpp>
 #include <ctime>

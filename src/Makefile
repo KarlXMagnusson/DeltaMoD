@@ -62,10 +62,14 @@
 #=====================
 
 GECODE_PATH := $(ROOTPATH)gecode
-GECODE_INC  := $(GECODE_PATH)/gecode
+GECODE_INC  := $(GECODE_PATH)
 GECODE_LIB  := $(GECODE_PATH)
-LIBXML_PATH := $(ROOTPATH)libxml2/include
+LIBXML_PATH := $(ROOTPATH)libxml2/build
+LIBXML_INC  := $(LIBXML_PATH)/include/libxml2
+LIBXML_LIB  := $(LIBXML_PATH)/lib
 BOOST_PATH  := $(ROOTPATH)boost/build
+BOOST_INC   := $(BOOST_PATH)/include
+BOOST_LIB   := $(BOOST_PATH)/lib
 
 GIT_VERSION := $(shell git describe --abbrev=4 --dirty --always --tags)
 
@@ -85,19 +89,17 @@ MODULES!adse := \
 #===================
 
 # Flags common to all program builds
-CXXFLAGS += -Wall -Wno-maybe-uninitialized -Wno-unused-result -std=c++11 -g -O1 \
-            -I$(BOOST_PATH)/ -I$(LIBXML_PATH)/ -I$(GECODE_PATH)/  -I. \
+CXXFLAGS += -Wall -Wno-unused-result -std=c++11 -g -O1 \
+            -I$(BOOST_INC)/ -I$(LIBXML_INC)/ -I$(GECODE_INC)/  -I. \
             -DVERSION=\"$(GIT_VERSION)\"
-LDFLAGS  += -Wl,-rpath,$(GECODE_PATH) \
-						-Wl,-rpath,$(LIBXML_PATH) \
-						-Wl,-rpath,$(BOOST_PATH) \
-						-Wl,-rpath,$$ORIGIN
+LDFLAGS  += -Wl,-rpath,$(GECODE_LIB) \
+						-Wl,-rpath,$(LIBXML_LIB) \
+						-Wl,-rpath,$(BOOST_LIB)
 LDLIBS   += -L$(GECODE_LIB)/ -L/usr/local/lib/ \
-            -L$(LIBXML_PATH)/ -L$(BOOST_PATH)/ \
+            -L$(LIBXML_LIB)/ -L$(BOOST_LIB)/ \
             -lgecodeint -lgecodeset -lgecodesearch -lgecodekernel \
             -lgecodesupport -lgecodeminimodel -lgecodegist -lgecodefloat \
-            -lxml2 -lboost_system \
-            -lboost_filesystem -lboost_program_options
+            -lxml2 -lboost_filesystem -lboost_program_options
 
 
 
@@ -210,7 +212,7 @@ $(PROGRAMS):
 	@$(MKDIR) $(BINPATH)
 	@printf $(PRELINKMSG) ""
 	@printf $(subst %,$@,$(ITEMLINKMSG)) ""
-	@$(CXX) $(LDFLAGS) -o $(addprefix $(BINPATH)/,$@) $^ $(LDLIBS)
+	$(CXX) $(LDFLAGS) -o $(addprefix $(BINPATH)/,$@) $^ $(LDLIBS)
 	@printf $(POSTLINKMSG) ""
 
 
