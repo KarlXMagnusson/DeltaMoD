@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<platform name="flexible_platform">
+  <processor model="secure_cpu" number="1">	
+    <mode name="standard" cycle="1" mem="1000" dynPower="10" staticPower="5" area="1" monetary="100" trust_level="90"/>
+    <mode name="fast" cycle="0.5" mem="1000" dynPower="50" staticPower="5" area="1" monetary="200" trust_level="40"/>
+  </processor>
+  <processor model="standard_cpu" number="1">	
+    <mode name="default" cycle="1" mem="1000" dynPower="5" staticPower="2" area="1" monetary="50" trust_level="20"/>
+  </processor>
+  <interconnect>
+    <TDN_NoC name="bus" topology="mesh" x-dimension="1" y-dimension="2" routing="Y-X" 
+             flitSize="128" cycles="1" maxCyclesPerProc="1">
+      <mode name="default" cycleLength="1" 
+            dynPower_link="1" dynPower_NI="1" dynPower_switch="1" 
+            staticPower_link="1" staticPower_NI="1" staticPower_switch="1" 
+            area_link="1" area_NI="1" area_switch="1" 
+            monetary_link="1" monetary_NI="1" monetary_switch="1"/>
+    </TDN_NoC>
+  </interconnect>
+</platform>

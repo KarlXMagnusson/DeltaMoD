@@ -1,0 +1,14 @@
+<WCET_table>
+  <mapping task_type="User_Input">
+    <wcet processor="simple" mode="default" wcet="10"/>
+    <wcet processor="powerful" mode="default" wcet="10"/>
+  </mapping>
+  <mapping task_type="LLM_Inference">
+    <wcet processor="simple" mode="default" wcet="500"/>
+    <wcet processor="powerful" mode="default" wcet="100"/>
+  </mapping>
+  <mapping task_type="Response_Parser">
+    <wcet processor="simple" mode="default" wcet="20"/>
+    <wcet processor="powerful" mode="default" wcet="20"/>
+  </mapping>
+</WCET_table>

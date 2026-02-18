@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf3 type="sdf" version="1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.es.ele.tue.nl/sdf3/xsd/sdf3-sdf.xsd">
+  <application name="TestApp">
+    <sdf name="TestApp" type="TestApp">
+      <actor name="Task1" type="Task1">
+        <port name="p1" type="out" rate="1"/>
+      </actor>
+      <actor name="Task2" type="Task2">
+        <port name="p2" type="in" rate="1"/>
+      </actor>
+      <channel name="c1" srcActor="Task1" srcPort="p1" dstActor="Task2" dstPort="p2" initialTokens="0"/>
+    </sdf>
+  </application>
+</sdf3>

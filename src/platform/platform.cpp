@@ -4,7 +4,7 @@ using namespace std;
 
 Platform::Platform(size_t p_nodes, int p_cycle, size_t p_memSize, int p_buffer, enum InterconnectType p_type, int p_dps, int p_tdma, int p_roundLength){
   for (size_t i=0; i<p_nodes; i++){
-    compNodes.push_back(new PE("pe"+i,"gp", vector<string>(1, "default"), vector<double>(1,p_cycle),
+    compNodes.push_back(new PE("pe" + std::to_string(i),"gp", vector<string>(1, "default"), vector<double>(1,p_cycle),
                                vector<int>(1,p_memSize), vector<int>(1,10), vector<int>(1,10),
                                vector<int>(1,10),vector<int>(1,1),p_buffer));
   }
@@ -99,6 +99,13 @@ void Platform::load_xml(XMLdoc& xml) throw (InvalidArgumentException)
               pe->AddMode(mode_name, atof(mode_cycle.c_str()), atoi(mode_mem.c_str()),
                         i_mode_dynPower, i_mode_staticPower, i_mode_area,
                         i_mode_monetary);
+
+              // Greedy Harvest
+              auto all_props = xml.getProps(mode);
+              for (auto const& prop : all_props) {
+                  pe->custom_properties[prop.first].push_back(atoi(prop.second.c_str()));
+              }
+
               LOG_DEBUG("Reading processor mode: " + mode_name + "...");		
             }
             

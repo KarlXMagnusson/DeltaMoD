@@ -184,6 +184,27 @@ std::string XMLdoc::getProp(xmlNodePtr node, const std::string attr) throw (Inva
   return tools::trim(ret);
 }
 
+int XMLdoc::getPropInt(xmlNodePtr node, const std::string attr, int default_val) throw () {
+  xmlChar* val = xmlGetProp(node, (const xmlChar *)attr.c_str());
+  if (val == NULL) return default_val;
+  int ret = atoi((char*)val);
+  xmlFree(val);
+  return ret;
+}
+
+std::map<std::string, std::string> XMLdoc::getProps(xmlNodePtr node) throw () {
+  std::map<std::string, std::string> props;
+  for (xmlAttrPtr attr = node->properties; attr != NULL; attr = attr->next) {
+    xmlChar* val = xmlGetProp(node, attr->name);
+    if (val != NULL) {
+      std::string s_val = (char*)val;
+      props[(char*)attr->name] = tools::trim(s_val);
+      xmlFree(val);
+    }
+  }
+  return props;
+}
+
 xmlNodePtr XMLdoc::getFirstChild(const xmlChar* nodename)  throw () {
   xmlNodePtr node = root;
   while(node != NULL){

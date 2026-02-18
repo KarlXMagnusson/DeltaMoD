@@ -39,10 +39,8 @@ SDFPROnlineModel::SDFPROnlineModel(Mapping* p_mapping, Config* _cfg):
     //noc_cost(*this, 0, Int::Limits::max),
     //nocUsed_cost(*this, 0, Int::Limits::max),
     sys_cost(*this, 0, Int::Limits::max),
-    sysUsed_cost(*this, 0, Int::Limits::max)//,
-    //wcct_b(*this, apps->n_programChannels(), 0, Int::Limits::max),
-    //wcct_s(*this, apps->n_programChannels(), 0, Int::Limits::max),
-    //wcct_r(*this, apps->n_programChannels(), 0, Int::Limits::max)
+    sysUsed_cost(*this, 0, Int::Limits::max),
+    flexible_metrics(*this, _cfg->settings().flexible_criteria.size(), 0, Int::Limits::max)
     {
       
     //initialization of secondary variables
@@ -152,6 +150,38 @@ SDFPROnlineModel::SDFPROnlineModel(Mapping* p_mapping, Config* _cfg):
     IntVarArgs nEntitiesOnProc(*this, platform->nodes(), 0, apps->n_programEntities()); /**< number of SDF actors and IPTs combined on proc[i]. */
     IntVarArgs proc_SDF_wcet_sum(*this, platform->nodes(), 0, Int::Limits::max); /**< sum of WCET on each proccessor for sdf apps. */
 #include "mapping.constraints"
+
+    /**
+     * FLEXIBLE METRICS
+     */
+    LOG_INFO("Inserting flexible metrics constraints. Count: " + tools::toString(cfg->settings().flexible_criteria.size()));
+    for(size_t c = 0; c < cfg->settings().flexible_criteria.size(); c++) {
+        string entry = cfg->settings().flexible_criteria[c];
+        size_t colon = entry.find(':');
+        string name = entry.substr(0, colon);
+        string agg = (colon != string::npos) ? entry.substr(colon+1) : "SUM";
+        
+        LOG_INFO("  Metric: " + name + ", Aggregator: " + agg);
+
+        IntVarArgs proc_values(*this, platform->nodes(), 0, Int::Limits::max);
+        for(size_t p = 0; p < platform->nodes(); p++) {
+            IntArgs mode_vals(platform->getModes(p));
+            for(size_t m = 0; m < platform->getModes(p); m++) {
+                mode_vals[m] = platform->getPE(p)->getCustomProperty(name, m);
+            }
+            element(*this, mode_vals, proc_mode[p], proc_values[p]);
+        }
+        
+        if (agg == "SUM") {
+            linear(*this, proc_values, IRT_EQ, flexible_metrics[c]);
+        } else if (agg == "MAX") {
+            if (proc_values.size() > 0)
+                max(*this, proc_values, flexible_metrics[c]);
+        } else if (agg == "MIN") {
+            if (proc_values.size() > 0)
+                min(*this, proc_values, flexible_metrics[c]);
+        }
+    }
 
     /**
      * Independent periodic tasks
@@ -674,9 +704,7 @@ SDFPROnlineModel::SDFPROnlineModel(bool share, SDFPROnlineModel& s):
     //nocUsed_cost.update(*this, share, s.nocUsed_cost);
     sys_cost.update(*this, share, s.sys_cost);
     sysUsed_cost.update(*this, share, s.sysUsed_cost);
-    //wcct_b.update(*this, share, s.wcct_b);
-    //wcct_s.update(*this, share, s.wcct_s);
-    //wcct_r.update(*this, share, s.wcct_r);
+    flexible_metrics.update(*this, share, s.flexible_metrics);
 }
 
 Space* SDFPROnlineModel::copy(bool share) {
@@ -710,6 +738,13 @@ void SDFPROnlineModel::print(std::ostream& out) const {
     //out << "noc cost (only used parts): " << nocUsed_cost << endl;
     out << "sys cost: " << sys_cost << endl;
     out << "sys cost (only used parts): " << sysUsed_cost << endl;
+    
+    for(int c = 0; c < flexible_metrics.size(); c++) {
+        if (c < (int)cfg->settings().flexible_criteria.size()) {
+            out << "flexible metric " << cfg->settings().flexible_criteria[c] << ": " << flexible_metrics[c] << endl;
+        }
+    }
+
     out << "Next: ";
     for(size_t ii = 0; ii < apps->n_SDFActors(); ii++){
         out << next[ii] << " ";
@@ -786,6 +821,8 @@ void SDFPROnlineModel::printCSV(std::ostream& out) const {
     out << least_power_est << sep;
     out << sys_area << sep;
     out << sys_cost << sep;
+    for(int c = 0; c < flexible_metrics.size(); c++)
+        out << flexible_metrics[c] << sep;
     out << endl;
 }
 
@@ -818,6 +855,10 @@ vector<int> SDFPROnlineModel::getOptimizationValues(){
   if(cfg->doOptimizePower()){
     if(sys_power.assigned()) values.push_back(sys_power.val());
     if(sysUsed_power.assigned()) values.push_back(sysUsed_power.val());
+  }
+  
+  for(int c = 0; c < flexible_metrics.size(); c++) {
+    if(flexible_metrics[c].assigned()) values.push_back(flexible_metrics[c].val());
   }
   
   return values;

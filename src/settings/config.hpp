@@ -131,6 +131,8 @@ public:
     OutputPrintFrequency      out_print_freq;
     std::vector<OptCriterion> printMetrics;
     
+    std::vector<std::string>  flexible_criteria; // Format: "Name:Aggregator" e.g. "Security:SUM"
+
     bool                      configTDN=false;
   };
   struct PresolverResults{
@@ -203,6 +205,7 @@ private:
   void setPrintMetrics(const std::vector<std::string> &) throw (InvalidFormatException);
   void setCriteria(const std::vector<std::string> &) throw (InvalidFormatException);
   void setThPropagator(const std::string &) throw (InvalidFormatException);
+  void setFlexibleCriteria(const std::vector<std::string> &) throw (InvalidFormatException);
   void setTimeout(const std::vector<unsigned long int> &) throw (IllegalStateException);
   void setTimeout_presolver(const std::vector<unsigned long int> &) throw (IllegalStateException);
   void setThreads(unsigned int) throw ();

@@ -110,6 +110,8 @@ private:
 
     int                        least_power_est;        /**< estimated least power consumption. */
   
+    // Flexible Metrics
+    IntVarArray                flexible_metrics;
 public:
 
     SDFPROnlineModel(Mapping* p_mapping, Config* _cfg);
@@ -154,6 +156,12 @@ public:
     virtual void constrain(const Space& _b)
     {
         const SDFPROnlineModel& b = static_cast<const SDFPROnlineModel&>(_b);
+
+        // Flexible Criteria Optimization
+        for(int c = 0; c < flexible_metrics.size(); c++) {
+            rel(*this, flexible_metrics[c] < b.flexible_metrics[c]);
+        }
+
         if(cfg->settings().optimizationStep == 0){
           switch(cfg->settings().criteria[0]) //creates the model based on the first criterion
           {

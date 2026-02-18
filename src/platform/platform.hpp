@@ -27,6 +27,8 @@
 #define __PLATFORM__
 
 #include<iostream>
+#include <map>
+#include <set>
 #include <limits>
 #include <vector>
 #include <string>
@@ -59,6 +61,7 @@ public:
   vector<int> areaCost;
   vector<int> monetaryCost;
   int NI_bufferSize;
+  std::map<std::string, std::vector<int>> custom_properties;
 
   PE() {};
 
@@ -175,7 +178,15 @@ public:
     staticPowerCons.push_back(_staticPowerCons);
     areaCost.push_back(_areaCost);
     monetaryCost.push_back(_monetaryCost);
-  }    
+  }
+
+  int getCustomProperty(std::string name, int mode) const {
+    auto it = custom_properties.find(name);
+    if (it != custom_properties.end() && mode < it->second.size()) {
+      return it->second[mode];
+    }
+    return 0;
+  }
 };
 
 //! Struct to capture the links of the TDN NoC.
@@ -361,6 +372,8 @@ public:
    
   // Gives the number of nodes
   size_t nodes() const;
+  
+  PE* getPE(size_t index) const { return compNodes[index]; }
   
   // Gives the type of interconnect
   InterconnectType getInterconnectType() const;

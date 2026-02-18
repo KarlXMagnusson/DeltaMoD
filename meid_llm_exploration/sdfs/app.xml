@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf3 type="sdf" version="1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.es.ele.tue.nl/sdf3/xsd/sdf3-sdf.xsd">
+  <application name="MeID_Interaction">
+    <sdf name="InteractionPattern" type="InteractionPattern">
+      <actor name="User_Input" type="User_Input">
+        <port name="p1" type="out" rate="1"/>
+      </actor>
+      <actor name="LLM_Inference" type="LLM_Inference">
+        <port name="p2" type="in" rate="1"/>
+        <port name="p3" type="out" rate="1"/>
+      </actor>
+      <actor name="Response_Parser" type="Response_Parser">
+        <port name="p4" type="in" rate="1"/>
+      </actor>
+      <channel name="c1" srcActor="User_Input" srcPort="p1" dstActor="LLM_Inference" dstPort="p2" initialTokens="0"/>
+      <channel name="c2" srcActor="LLM_Inference" srcPort="p3" dstActor="Response_Parser" dstPort="p4" initialTokens="0"/>
+    </sdf>
+  </application>
+</sdf3>

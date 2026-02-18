@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<platform name="MeID_LLM_Ecosystem">
+  <processor model="simple" number="3">	
+    <mode name="default" cycle="1" mem="1000000" dynPower="100" staticPower="50" area="1" monetary="0" quality_score="50"/>
+  </processor>
+  <processor model="powerful" number="1">	
+    <mode name="default" cycle="0.2" mem="1000000" dynPower="500" staticPower="200" area="1" monetary="0" quality_score="90"/>
+  </processor>
+
+  <interconnect>
+    <TDN_NoC name="internet" topology="mesh" x-dimension="1" y-dimension="4" routing="Y-X" 
+             flitSize="1024" cycles="4" maxCyclesPerProc="1">
+      <mode name="default" cycleLength="1" 
+            dynPower_link="0" dynPower_NI="0" dynPower_switch="0" 
+            staticPower_link="0" staticPower_NI="0" staticPower_switch="0" 
+            area_link="0" area_NI="0" area_switch="0" 
+            monetary_link="0" monetary_NI="0" monetary_switch="0"/>
+    </TDN_NoC>
+  </interconnect>
+</platform>

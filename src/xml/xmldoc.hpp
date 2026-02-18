@@ -27,6 +27,7 @@
 #define XML_XMLDOC_H_
 
 #include <cstring>
+#include <map>
 #include <libxml/parser.h>
 #include <libxml/tree.h>
 #include <libxml/xmlschemas.h>
@@ -109,6 +110,8 @@ public:
 
   bool hasProp(xmlNodePtr node, const std::string attr) throw ();
   std::string getProp(xmlNodePtr, const std::string name) throw (InvalidArgumentException);
+  int getPropInt(xmlNodePtr node, const std::string name, int default_val) throw ();
+  std::map<std::string, std::string> getProps(xmlNodePtr node) throw ();
 
 protected:  
   xmlDocPtr        doc;    //!< XML document 

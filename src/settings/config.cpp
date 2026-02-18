@@ -177,7 +177,12 @@ int Config::parse(int argc, const char** argv) throw (IOException, InvalidArgume
           po::value<string>()->default_value(string("SSE"))->notifier(
               boost::bind(&Config::setThPropagator, this, _1)),
           "Throughput propagator type.\n"
-          "Valid options SSE, MCR. ");
+          "Valid options SSE, MCR. ")
+      ("dse.flexible-criteria",
+          po::value<vector<string>>()->multitoken()->notifier(
+              boost::bind(&Config::setFlexibleCriteria, this, _1)),
+          "Flexible optimization criteria. Format: Name:Aggregator (SUM, MAX, MIN)\n"
+          "e.g. --dse.flexible-criteria \"Security:MAX\" \"Cost:SUM\"");
 
   po::variables_map vm;
   po::options_description visible_options, all_options;
@@ -612,4 +617,8 @@ bool Config::is_presolved()
         return false;
   }
   return false;
+}
+
+void Config::setFlexibleCriteria(const std::vector<std::string> &v) throw (InvalidFormatException) {
+    settings_.flexible_criteria = v;
 }

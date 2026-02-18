@@ -1,0 +1,12 @@
+<WCET_table>
+  <mapping task_type="Task1">
+    <wcet processor="secure_cpu" mode="standard" wcet="100"/>
+    <wcet processor="secure_cpu" mode="fast" wcet="50"/>
+    <wcet processor="standard_cpu" mode="default" wcet="80"/>
+  </mapping>
+  <mapping task_type="Task2">
+    <wcet processor="secure_cpu" mode="standard" wcet="100"/>
+    <wcet processor="secure_cpu" mode="fast" wcet="50"/>
+    <wcet processor="standard_cpu" mode="default" wcet="80"/>
+  </mapping>
+</WCET_table>

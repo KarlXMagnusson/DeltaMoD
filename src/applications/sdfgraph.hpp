@@ -29,6 +29,9 @@
 
 
 #include <unordered_map>
+#include <map>
+#include <vector>
+#include <string>
 
 #include <boost/graph/transitive_closure.hpp>
 #include <boost/graph/graph_traits.hpp>
@@ -54,6 +57,7 @@ public:
   string parent_name; /*!< Name of the actor in the SDF from which this actor was generated. */
   size_t codeSize;    /*!< Code size of the actor. */
   size_t dataSize;    /*!< Data size of the actor. */
+  std::map<std::string, int> custom_data;
 };
 
 /**
