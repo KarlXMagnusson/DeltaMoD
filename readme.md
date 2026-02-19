@@ -1,11 +1,11 @@
 # DeltaMoD
 
-DeltaMoD is a design space exploration tool that has its origin in "A Model of Design for Embedded Computing Systems — A Categorical Approach 2023 by Tage Mohammadat". It is an adaptation and extension of the DeltaMoD tool developed at KTH (ForSyDe research group).
+DeltaMoD is a design space exploration tool that has its origin in "A Model of Design for Embedded Computing Systems — A Categorical Approach 2023 by Tage Mohammadat". It is an adaptation and extension of the DeSyDe tool developed at KTH (ForSyDe research group).
 
 DeltaMoD evolves the analytical design space exploration framework to support categorical design models and software-defined optimization spaces.
 
 ### Background:
-DeltaMoD builds upon the foundations of DeltaMoD, which was originally developed for exploring power and throughput for dataflow applications on predictable NoC multiprocessors. DeltaMoD extends this by providing more flexibility in how design problems are modeled and explored, allowing for categorical design decisions and custom optimization metrics.
+DeltaMoD builds upon the foundations of DeSyDe, which was originally developed for exploring power and throughput for dataflow applications on predictable NoC multiprocessors. DeltaMoD extends this by providing more flexibility in how design problems are modeled and explored, allowing for categorical design decisions and custom optimization metrics.
 
 # (Almost) hassle-free installation
 
