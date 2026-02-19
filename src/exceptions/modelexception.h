@@ -39,7 +39,7 @@
  * @brief Defines exceptions for errors due to invalid models.
  */
 
-namespace DeSyDe {
+namespace DeltaMoD {
 
 /**
  * @brief Used when a method was called with arguments of invalid model.

@@ -56,7 +56,7 @@ using namespace Int;
 
 int main(int argc, const char* argv[]) {
 
-  cout << "DeSyDe - Analytical Design Space Exploration Tool\n";
+  cout << "DeltaMoD - Analytical Design Space Exploration Tool\n";
   int exit_status = 0;
 
   Config cfg;
@@ -64,7 +64,7 @@ int main(int argc, const char* argv[]) {
   try {
     if (cfg.parse(argc, argv))
       return 0;
-  } catch (DeSyDe::Exception& ex) {
+  } catch (DeltaMoD::Exception& ex) {
     cout << ex.toString() << endl;
     return 1;
   }
@@ -227,7 +227,7 @@ int main(int argc, const char* argv[]) {
 //    val->Validate();
 
     return exit_status;
-  } catch (DeSyDe::Exception& ex) {
+  } catch (DeltaMoD::Exception& ex) {
     cout << ex.toString() << endl;
     return 1;
   }

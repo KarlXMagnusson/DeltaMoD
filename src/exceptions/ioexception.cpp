@@ -29,7 +29,7 @@
 #include <string>
 
 
-using namespace DeSyDe;
+using namespace DeltaMoD;
 using std::string;
 
 IOException::IOException(const string& source_file, int source_line,

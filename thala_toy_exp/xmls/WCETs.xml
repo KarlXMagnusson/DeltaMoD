@@ -1,0 +1,14 @@
+<WCET_table>
+  <mapping task_type="STT">
+    <wcet processor="threadripper" mode="default" wcet="1500"/>
+    <wcet processor="blackwell" mode="default" wcet="300"/>
+  </mapping>
+  <mapping task_type="Diarization">
+    <wcet processor="threadripper" mode="default" wcet="800"/>
+    <wcet processor="blackwell" mode="default" wcet="200"/>
+  </mapping>
+  <mapping task_type="Summarization">
+    <wcet processor="threadripper" mode="default" wcet="2000"/>
+    <wcet processor="blackwell" mode="default" wcet="400"/>
+  </mapping>
+</WCET_table>

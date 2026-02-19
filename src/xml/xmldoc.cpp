@@ -4,7 +4,7 @@
 #include "xmldoc.hpp"
 
 using namespace std;
-using namespace DeSyDe;
+using namespace DeltaMoD;
 namespace fs = boost::filesystem;
 
 XMLdoc::XMLdoc(const string& filepath) throw()

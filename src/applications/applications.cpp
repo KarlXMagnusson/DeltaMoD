@@ -1,6 +1,6 @@
 #include "applications.hpp"
 
-using namespace DeSyDe;
+using namespace DeltaMoD;
 
 Applications::Applications() {
   n_sdfActors       = 0;

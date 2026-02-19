@@ -38,7 +38,7 @@
 #include "../exceptions/ioexception.h"
 
 
-using namespace DeSyDe;
+using namespace DeltaMoD;
 
 namespace tools {
 

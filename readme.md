@@ -1,48 +1,17 @@
-# DeSyDe
+# DeltaMoD
 
-DeSyDe is a design space exploration tool developed at KTH (ForSyDe research group).
+DeltaMoD is a design space exploration tool that has its origin in "A Model of Design for Embedded Computing Systems — A Categorical Approach 2023 by Tage Mohammadat". It is an adaptation and extension of the DeltaMoD tool developed at KTH (ForSyDe research group).
 
-### Releases:
-* latest: 
-  * [Release for our DSD'18 publication + user tutorial](https://github.com/forsyde/DeSyDe/tree/v0.3.0-dsd)
+DeltaMoD evolves the analytical design space exploration framework to support categorical design models and software-defined optimization spaces.
 
-* previous:
-  * [Release for our TODAES article](https://github.com/forsyde/DeSyDe/tree/v0.2.1-todaes)
-  * [Release for our RAPIDO'17 publication](https://github.com/forsyde/DeSyDe/tree/v0.1.1-rapido)
-
+### Background:
+DeltaMoD builds upon the foundations of DeltaMoD, which was originally developed for exploring power and throughput for dataflow applications on predictable NoC multiprocessors. DeltaMoD extends this by providing more flexibility in how design problems are modeled and explored, allowing for categorical design decisions and custom optimization metrics.
 
 # (Almost) hassle-free installation
 
-You need to install DeSyDe via the automated build scripts. We have
-tried assuring an (almost) fully-automated installation process,
-especially for Linux machines. The idea is quite simple: the script
-downloads almost everything necessary so that nothing on your system
-is touched and then proceeds to compile everything. This sandboxing
-comes with the cost of added compilation time, but since this should
-be a one-time process, the larger time frame is a good trade-off for
-flexibility.
+You need to install DeltaMoD via the automated build scripts. The script downloads almost everything necessary so that nothing on your system is touched and then proceeds to compile everything.
 
-The only dependency that is not cloned directly from its repo and
-compiled alongside DeSyDe is Qt, as DeSyDe currently does not make
-Gecode's Gist optional. Please ensure that you have the basic
-development files for Qt installed and reachable in your machine. In
-future releases this necessity will be removed.
-
-If you are on any debian-based distro with reasonably updated
-packages, you should be good to go by issuing the following install
-command (do not forget to prepend sudo if necessary):
-
-    apt install automake libtool qt5-default
-    
-As of 2019-06-05, it seems from user feedback that on ubuntu and other
-derived distros not all dependencies are pulled with these commands, so
-it may be necessary to install `qtcreator` to be able to compile DeSyDe
-(do not forget to prepend sudo if necessary):
-
-    apt install qtcreator
-
-Then, a `make` followed by `make install` should do the trick. Tested
-on Linux Mint 18.3 and Debian 10.
+The only dependency that is not cloned directly from its repo and compiled alongside DeltaMoD is Qt, as it currently does not make Gecode's Gist optional. Please ensure that you have the basic development files for Qt installed.
 
 ## macOS Installation
 
@@ -55,19 +24,19 @@ Then build with:
     export PATH="/opt/homebrew/opt/qt@5/bin:$PATH"
     make
 
-**Running DeSyDe:** Since the tool uses local libraries, use the provided wrapper script:
+**Running DeltaMoD:** Since the tool uses local libraries, use the provided wrapper script:
 
-    ./desyde --help
-    ./desyde -c examples/tutorial/config.cfg
+    ./deltamod --help
+    ./deltamod -c examples/tutorial/config.cfg
 
 Or set the library path manually:
 
     export DYLD_LIBRARY_PATH="$PWD/gecode:$PWD/libxml2/build/lib:$PWD/boost/build/lib:$DYLD_LIBRARY_PATH"
     ./bin/adse --help
 
-## Software-Defined Design Spaces (New!)
+## Software-Defined Design Spaces (Meta-Design)
 
-DeSyDe now supports arbitrary optimization metrics. You can define your own attributes in the platform XML and optimize for them without changing the source code.
+DeltaMoD supports arbitrary optimization metrics. You can define your own attributes in the platform XML and optimize for them without changing the source code.
 
 **1. Define attributes in your XML:**
 ```xml
@@ -76,34 +45,27 @@ DeSyDe now supports arbitrary optimization metrics. You can define your own attr
 
 **2. Optimize using the flexible criteria flag:**
 ```bash
-./desyde -c config.cfg --dse.flexible-criteria "reliability:MAX" "monetary_cost:SUM"
+./deltamod -c config.cfg --dse.flexible-criteria "reliability:MAX" "monetary_cost:SUM"
 ```
 
 **Aggregators supported:** `SUM`, `MAX`, `MIN`.
 
 # Usage
 
-Please follow the [tutorial](docs/tutorial.md) for more details on how
-to use the tool and how to interpret its output.
+Please follow the [tutorial](docs/tutorial.md) for more details on how to use the tool and how to interpret its output.
 
 # Running the Experiments
 
-The experiments provided in the `examples` folder represent those that are still functional and were
-used as proof of concepts into previous papers this project was involved. For a step-by-step tutorial
-on how to setup your own experiment, check out the tutorial provided in this repo.
+The experiments provided in the `examples` folder represent those that are still functional and were used as proof of concepts in publications.
 
 ## Included examples
 
-* [DSD18](examples/DSD18): experiments from our [DSD'18](ttps://doi.org/10.1109/DSD.2018.00011.) dealing with TDN NoCs exploration that optimize power while respecting real time constraints.
-* [ScalAnalysis](examples/ScalAnalysis): folder containing scripts that generates experiments for different sized NoCs platforms based on a template extracted from [DSD18](examples/DSD18).
-* [tutorial](examples/tutorial): the files used for the user [tutorial](docs/tutorial.md).
+* [DSD18](examples/DSD18): experiments dealing with TDN NoCs exploration that optimize power while respecting real time constraints.
+* [ScalAnalysis](examples/ScalAnalysis): folder containing scripts that generates experiments for different sized NoCs platforms.
+* [tutorial](examples/tutorial): the files used for the user tutorial.
 
-# Publications
+# Publications & Origins
 
-[Kathrin Rosvall, Tage Mohammadat, George Ungureanu, Johnny Öberg, and Ingo Sander. “Exploring Power and Throughput for Dataflow Applications on Predictable NoC Multiprocessors,” 719–26, 2018.](https://doi.org/10.1109/DSD.2018.00011.)
-
-[Kathrin Rosvall, Nima Khalilzad, George Ungureanu, and Ingo Sander. Throughput propagation in constraint-based design space exploration for mixed-criticality systems. In Proceedings of the 2017 Workshop on Rapid Simulation and Performance Evaluation: Methods and Tools (RAPIDO '17), Stockholm, Sweden. ACM, January 2017.](https://doi.org/10.1145/3023973.3023977)
-
-[Nima Khalilzad, Kathrin Rosvall, and Ingo Sander. A modular design space exploration framework for multiprocessor real-time systems. In Forum on specification & Design Languages (FDL '16), Bremen, Germany. IEEE, September 2016.](https://doi.org/10.1109/FDL.2016.7880377)
-
-[Kathrin Rosvall and Ingo Sander. A constraint-based design space exploration framework for real-time applications on MPSoCs. In Design Automation and Test in Europe (DATE '14), Dresden, Germany, Mar. 2014.](http://dx.doi.org/10.7873/DATE.2014.339)
+* **Origin:** Tage Mohammadat, "A Model of Design for Embedded Computing Systems — A Categorical Approach", 2023.
+* Kathrin Rosvall, Tage Mohammadat, George Ungureanu, Johnny Öberg, and Ingo Sander. “Exploring Power and Throughput for Dataflow Applications on Predictable NoC Multiprocessors,” 2018.
+* Kathrin Rosvall, Nima Khalilzad, George Ungureanu, and Ingo Sander. "Throughput propagation in constraint-based design space exploration for mixed-criticality systems", 2017.

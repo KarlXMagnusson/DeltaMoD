@@ -44,7 +44,7 @@
 
 
 namespace po = boost::program_options;
-using namespace DeSyDe;
+using namespace DeltaMoD;
 using namespace std;
 /**
  * @brief Defines a class for containing program settings.

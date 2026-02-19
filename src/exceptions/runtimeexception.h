@@ -40,7 +40,7 @@
 #include "exception.h"
 #include <string>
 
-namespace DeSyDe {
+namespace DeltaMoD {
 
 /**
  * @brief Base class for runtime error.

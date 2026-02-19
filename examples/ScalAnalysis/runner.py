@@ -23,20 +23,20 @@ import time
 
 
 # arguments from command line and their parsing
-parser = argparse.ArgumentParser(description='Manage and execute DeSyDe experiments.')
-parser.add_argument('bin', type=str, nargs=1, help='specify the DeSyDe binary to be used as seen from the bin_path option.')
+parser = argparse.ArgumentParser(description='Manage and execute DeltaMoD experiments.')
+parser.add_argument('bin', type=str, nargs=1, help='specify the DeltaMoD binary to be used as seen from the bin_path option.')
 parser.add_argument('--platform', type=str, default="TDN-NoC", help="Select which kind of platform the tests should be ran on. Possible arguments: 'TDN-NoC'")
 parser.add_argument('--size', type=str, help="Select the size of the chosen platform, e.g. X and Y for TDN NoC ones. Separate multiple values with comma.")
 parser.add_argument('--slots', type=str, help="Select the TDN slots of the chosen platform, e.g. 2 for TDN NoC ones. Separate multiple values with comma.")
 parser.add_argument('--applications', type=str, help="Select the combination of applications the test should run, e.g. 'so-cy-ra'. Can be given out of order. Separate multiple values with comma.")
 # parser.add_argument('experiments', type=str, nargs='*', help='Integers or ranges (inclusive) representing the experiment to run, separated by spaces. e.g. 1 4-7 6 5-20. No specification means to run all found in current folder.')
-parser.add_argument('-bp', '--bin_path', type=str, default='/var/forsyde/bin', help="the folder in which the DeSyDe binaries can be found. Default: /var/forsyde/bin")
+parser.add_argument('-bp', '--bin_path', type=str, default='/var/forsyde/bin', help="the folder in which the DeltaMoD binaries can be found. Default: /var/forsyde/bin")
 args = parser.parse_args()
 
 # bulk of the script: find the bin, get experiments and run them.
 original_dir = os.getcwd()
 if not os.path.exists(os.path.join(args.bin_path, args.bin[0])):
-  print('A DeSyDe binary could not be found on the path provided.')
+  print('A DeltaMoD binary could not be found on the path provided.')
   quit()
 bin_dir = os.path.join(args.bin_path, args.bin[0])
 print('Running with binary {0}'.format(bin_dir))

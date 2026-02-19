@@ -36,11 +36,11 @@
 using std::string;
 using std::vector;
 using std::list;
-using namespace DeSyDe;
+using namespace DeltaMoD;
 
 
 const string help_intro = string()
-    + "DeSyDe - Analytical Design Space Exploration tool with Constraint Programming\n"
+    + "DeltaMoD - Analytical Design Space Exploration tool with Constraint Programming\n"
     + "Developers: Kathrin Rosvall  <danmann@kth.se>\n"
     + "            Nima Khalilzad   <nkhal@kth.se>\n"
     + "            George Ungureanu <ugeorge@kth.se>\n"

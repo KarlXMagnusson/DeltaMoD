@@ -6,7 +6,7 @@ optionally some constraints that the solution must obey. In terms of input, we t
 
   1. `platform.xml` which describes the platform being mapped.
   2. `application1.xml`, `application2.xml`, etc that describes the applications being mapped.
-  The applications needs to be separated in different files, as DeSyDe read all SDF3 xmls given and build ups
+  The applications needs to be separated in different files, as DeltaMoD read all SDF3 xmls given and build ups
   a model via the union of the provided applications.
   3. `WCETs.xml` which describes the worst case scenario execution time for any actor in any processor.
   4. `desConst.xml` which describes the extra functional constraints of the final design. (Optional)
@@ -55,7 +55,7 @@ and does not change dynamically at runtime by assumption. There are no hard unit
 extra function characteristics, for instance, `8000` memory for `simple` could mean `8000` bits, bytes or even Kbytes.
 
 Next, the interconnection is specified. Like processors, the interconnect must have at least one mode of operation specified
-so that DeSyDe can choose which mode, if the choice exists, should be used for the implementation. The major difference now
+so that DeltaMoD can choose which mode, if the choice exists, should be used for the implementation. The major difference now
 is that some additional tags exists for the interconnection, such as the dimensions of the mesh (the only available topology for now),
 the routing algorithm to be used, the flit size, TDN slots as `cycles` and the maximum number of TDN Slots per Processor.
 the `link` terminology in the mode specification represents how much of that number is applied to each real
@@ -242,15 +242,15 @@ note that to transcribe a channel with non-homogeneous production and consumptio
 then accordingly. In essence, a channel in the SDF3 format is reduce to a single port pair, so a channel on the pure SDF model correspond
 to many channels in the SDF3 description format.
 
-Then in the `config.cgf` we add an additional line to instruct DeSyDe in where to find these files we just wrote:
+Then in the `config.cgf` we add an additional line to instruct DeltaMoD in where to find these files we just wrote:
 
     inputs=/path/to/root/of/xmls/relative/to/config
     
-There can be as many `inputs` directives as necessary in the configuration file, DeSyDe simply scans through all of them.
+There can be as many `inputs` directives as necessary in the configuration file, DeltaMoD simply scans through all of them.
 
 ## Execution timing
 
-After declaring the platform and the application set, the last necessary bundle of information that DeSyDe needs is
+After declaring the platform and the application set, the last necessary bundle of information that DeltaMoD needs is
 the execution time for the application set in the described platform, otherwise it is impossible to reason
 the static order of execution that happens in the model.
 
@@ -308,7 +308,7 @@ the file `WCETs.xml` would look like for our ongoing example:
     </WCET_table>
 
 Note that the important attribute to be described is rather the WCET of each task in each processor and mode pair. Once this file is written
-with meaningful WCETs DeSyDe can be run in the directory that contains these files and specifically in which `config.cfg` is present.
+with meaningful WCETs DeltaMoD can be run in the directory that contains these files and specifically in which `config.cfg` is present.
 Also observe that there is no particular unit attached to the execution times provided, as long a they make sense in the overall problem solution;
 e.g. they can be clock cycles, microseconds, nanoseconds etc.
 
@@ -342,7 +342,7 @@ The simplest structure of a folder to contain both the inputs and outputs of the
         | - WCETs.xml        
     | - out
 
-Note that the creation of the out folder is necessary as DeSyDe needs the output folder to have in itself a `out` folder
+Note that the creation of the out folder is necessary as DeltaMoD needs the output folder to have in itself a `out` folder
 to dump all results inside. Running the binary in this folder will produce a .txt file in the `out` folder after finishing
 the exploration. The command would be similar to:
 

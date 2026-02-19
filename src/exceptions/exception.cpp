@@ -28,7 +28,7 @@
 #include "exception.h"
 
 using std::string;
-using namespace DeSyDe;
+using namespace DeltaMoD;
 
 Exception::Exception(const string& source_file, int source_line) throw()
         : exception(), source_file_(source_file),

@@ -26,7 +26,7 @@
 
 #include "runtimeexception.h"
 
-using namespace DeSyDe;
+using namespace DeltaMoD;
 using std::string;
 
 RuntimeException::RuntimeException(const string& source_file, int source_line)

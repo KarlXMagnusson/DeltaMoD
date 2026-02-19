@@ -26,7 +26,7 @@
 
 #include "modelexception.h"
 
-using namespace DeSyDe;
+using namespace DeltaMoD;
 using std::string;
 
 InvalidModelException::InvalidModelException(

@@ -38,7 +38,7 @@ def ms_to_time_tuple(time_ms):
 
 
 # arguments from command line and their parsing
-parser = argparse.ArgumentParser(description='Process DeSyDe experiments.')
+parser = argparse.ArgumentParser(description='Process DeltaMoD experiments.')
 parser.add_argument('--platform', type=str, default="TDN-NoC", help="Select which kind of platform the tests should be ran on. Possible arguments: 'TDN-NoC'")
 parser.add_argument('--size', type=str, help="Select the size of the chosen platform, e.g. X and Y for TDN NoC ones. Separate multiple values with comma.")
 parser.add_argument('--slots', type=str, help="Select the TDN slots of the chosen platform, e.g. 2 for TDN NoC ones. Separate multiple values with comma.")

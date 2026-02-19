@@ -38,7 +38,7 @@
  * @brief Defines exceptions for I/O errors.
  */
 
-namespace DeSyDe {
+namespace DeltaMoD {
 
 /**
  * @brief Used to indicate that an I/O error has occurred when operating on

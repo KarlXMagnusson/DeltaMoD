@@ -36,7 +36,7 @@ def partition_set_no_empty(s):
   return partitions
 
 # arguments from command line and their parsing
-parser = argparse.ArgumentParser(description='Generate DeSyDe experiments.')
+parser = argparse.ArgumentParser(description='Generate DeltaMoD experiments.')
 parser.add_argument('experiments', type=str, nargs='+', help='Integers or ranges (inclusive) representing the number of TDN NoCs to generate, separated by spaces. e.g. 1 4-7 6 5-20.')
 args = parser.parse_args()
 

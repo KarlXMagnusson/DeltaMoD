@@ -36,7 +36,7 @@
 #include "config.hpp"
 
 using namespace std;
-using namespace DeSyDe;
+using namespace DeltaMoD;
 
 struct PresolverResults{
   size_t it_mapping; /**< Informs the CP model how to use oneProcMappings: <.size(): Enforce mapping, >=.size() Forbid all. */

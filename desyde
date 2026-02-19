@@ -1,7 +1,0 @@
-#!/bin/bash
-# DeSyDe wrapper script - sets up library paths automatically
-
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-export DYLD_LIBRARY_PATH="${SCRIPT_DIR}/gecode:${SCRIPT_DIR}/libxml2/build/lib:${SCRIPT_DIR}/boost/build/lib:${DYLD_LIBRARY_PATH}"
-
-"${SCRIPT_DIR}/bin/adse" "$@"

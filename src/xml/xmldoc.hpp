@@ -37,7 +37,7 @@
 #include "../logger/logger.hpp"
 #include "../exceptions/ioexception.h"
 
-using namespace DeSyDe;
+using namespace DeltaMoD;
 
 /**
  * @brief XML parser parent class
@@ -84,7 +84,7 @@ public:
    * @throws IOException
    *         When there is something wrong with the file.
    */
-  void readXSD(const char* path_node, const char* path_attribute) throw (IOException, DeSyDe::ParseException);
+  void readXSD(const char* path_node, const char* path_attribute) throw (IOException, DeltaMoD::ParseException);
 
   /**
    * @brief Reads an XML file and validate agains XSD schema

@@ -37,7 +37,7 @@
 
 #include <vector>
 
-using namespace DeSyDe;
+using namespace DeltaMoD;
 using namespace std;
 
 namespace tools {

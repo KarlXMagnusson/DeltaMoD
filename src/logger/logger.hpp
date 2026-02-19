@@ -43,7 +43,7 @@
 #include "../exceptions/ioexception.h"
 #include "../exceptions/runtimeexception.h"
 
-using namespace DeSyDe;
+using namespace DeltaMoD;
 
 // Definition of a multithread safe singleton logger class
 class Logger {
