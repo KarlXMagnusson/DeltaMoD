@@ -44,6 +44,43 @@ it may be necessary to install `qtcreator` to be able to compile DeSyDe
 Then, a `make` followed by `make install` should do the trick. Tested
 on Linux Mint 18.3 and Debian 10.
 
+## macOS Installation
+
+For macOS (including Apple Silicon/M1/M2/M3), use Homebrew to install dependencies:
+
+    brew install automake libtool qt@5
+
+Then build with:
+
+    export PATH="/opt/homebrew/opt/qt@5/bin:$PATH"
+    make
+
+**Running DeSyDe:** Since the tool uses local libraries, use the provided wrapper script:
+
+    ./desyde --help
+    ./desyde -c examples/tutorial/config.cfg
+
+Or set the library path manually:
+
+    export DYLD_LIBRARY_PATH="$PWD/gecode:$PWD/libxml2/build/lib:$PWD/boost/build/lib:$DYLD_LIBRARY_PATH"
+    ./bin/adse --help
+
+## Software-Defined Design Spaces (New!)
+
+DeSyDe now supports arbitrary optimization metrics. You can define your own attributes in the platform XML and optimize for them without changing the source code.
+
+**1. Define attributes in your XML:**
+```xml
+<mode name="standard" reliability="90" monetary_cost="100"/>
+```
+
+**2. Optimize using the flexible criteria flag:**
+```bash
+./desyde -c config.cfg --dse.flexible-criteria "reliability:MAX" "monetary_cost:SUM"
+```
+
+**Aggregators supported:** `SUM`, `MAX`, `MIN`.
+
 # Usage
 
 Please follow the [tutorial](docs/tutorial.md) for more details on how
